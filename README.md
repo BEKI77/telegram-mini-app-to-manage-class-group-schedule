@@ -1,141 +1,327 @@
-# Telegram Mini Apps Next.js Template
+# 📚 Class Schedule Management - Telegram Mini App
 
-This template demonstrates how developers can implement a web application on the
-Telegram Mini Apps platform using the following technologies and libraries:
+A modern, feature-rich class schedule management system built as a Telegram Mini App. Designed for students and class representatives to manage schedules, assignments, announcements, and more - all within Telegram.
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
-- [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk/2-x)
-- [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
+## ✨ Current Features
 
-> The template was created using [pnpm](https://pnpm.io/). Therefore, it is
-> required to use it for this project as well. Using other package managers, you
-> will receive a corresponding error.
+### 🎓 For Students
 
-## Install Dependencies
+- **📅 Schedule Viewing**
+  - View daily and weekly class schedules
+  - See today's classes on the dashboard
+  - Class details: time, location, instructor, course code
+  - Automatic day-based filtering
 
-If you have just cloned this template, you should install the project
-dependencies using the command:
+- **📝 Assignment Tracking**
+  - View upcoming assignments with due dates
+  - Filter by status (upcoming, past, completed)
+  - Assignment details: title, description, course, attachments
+  - Quick overview on dashboard
 
-```Bash
-pnpm install
-```
+- **📢 Announcements**
+  - Real-time class announcements
+  - Course-specific or general announcements
+  - Displayed prominently on dashboard
 
-## Scripts
+- **📖 Course Directory**
+  - Browse all courses in your class
+  - View course details: name, code, instructor
+  - Clean, organized course listing
 
-This project contains the following scripts:
+- **👤 Personalized Experience**
+  - Dynamic greeting with your Telegram first name
+  - Context-aware data based on your class/topic
+  - Role-based interface (student vs representative)
 
-- `dev`. Runs the application in development mode.
-- `dev:https`. Runs the application in development mode using self-signed SSL
-  certificate.
-- `build`. Builds the application for production.
-- `start`. Starts the Next.js server in production mode.
-- `lint`. Runs [eslint](https://eslint.org/) to ensure the code quality meets
-  the required
-  standards.
+### 🛠️ For Class Representatives
 
-To run a script, use the `pnpm run` command:
+- **📚 Course Management**
+  - Create, edit, and delete courses
+  - Set course name, code, and instructor
+  - Manage multiple courses per class
 
-```Bash
-pnpm run {script}
-# Example: pnpm run build
-```
+- **🗓️ Schedule Management**
+  - Add class schedules with day, time, and location
+  - Edit existing schedules
+  - Delete outdated schedules
+  - Multiple schedules per course
 
-## Create Bot and Mini App
+- **✍️ Assignment Management**
+  - Create assignments with title, description, due date
+  - Add attachment URLs
+  - Edit and delete assignments
+  - Set assignment status
 
-Before you start, make sure you have already created a Telegram Bot. Here is
-a [comprehensive guide](https://docs.telegram-mini-apps.com/platform/creating-new-app)
-on how to do it.
+- **📣 Announcement System**
+  - Post announcements to the class
+  - Link announcements to specific courses (optional)
+  - Edit and delete announcements
 
-## Run
+- **🎯 Centralized Management Dashboard**
+  - Tabbed interface for courses, schedules, assignments, announcements
+  - Quick add/edit/delete actions
+  - Real-time updates
 
-Although Mini Apps are designed to be opened
-within [Telegram applications](https://docs.telegram-mini-apps.com/platform/about#supported-applications),
-you can still develop and test them outside of Telegram during the development
-process.
+### 🔐 Security & Access Control
 
-To run the application in the development mode, use the `dev` script:
+- **Role-Based Access**
+  - Representatives have edit access
+  - Students have read-only access
+  - Automatic role verification
 
+- **Telegram Authentication**
+  - Secure authentication via Telegram initData
+  - No separate login required
+  - User data synced from Telegram
+
+- **Multi-Classroom Support**
+  - Each Telegram topic = separate classroom
+  - Context-aware data filtering
+  - Representatives can manage their assigned classrooms
+
+### 🤖 Telegram Bot Integration
+
+- **Classroom Creation**
+  - `/create <name>` command to create classrooms
+  - Links Telegram topics to classrooms
+  - Automatic representative role assignment
+
+- **User Management**
+  - Automatic user registration on first interaction
+  - User data sync (name, username)
+  - Role assignment system
+
+- **Deep Linking**
+  - Direct links to specific classrooms
+  - Start parameter for context passing
+  - Seamless navigation from Telegram to Mini App
+
+### 🎨 UI/UX Features
+
+- **Modern Design**
+  - Dark mode optimized
+  - Gradient accents and glassmorphism
+  - Smooth animations with Framer Motion
+  - Responsive mobile-first design
+
+- **Intuitive Navigation**
+  - Bottom navigation bar
+  - Quick access to all sections
+  - Manage button for representatives
+
+- **Performance**
+  - Fast loading with optimized queries
+  - Efficient data fetching
+  - Smooth transitions
+
+## 🗺️ Roadmap - Planned Features
+
+### 🔔 High Priority
+
+- [ ] **Push Notifications & Reminders**
+  - Class start reminders (15-30 mins before)
+  - Assignment deadline notifications
+  - New announcement alerts
+  - Daily schedule summary
+
+- [ ] **Attendance Tracking**
+  - Mark attendance per class (representatives)
+  - View attendance percentage (students)
+  - Attendance calendar/heatmap
+  - Automated attendance reports
+
+- [ ] **Study Resources & Materials**
+  - Upload/share course materials
+  - PDF, link, and video support
+  - Organize by course and topic
+  - Search functionality
+
+- [ ] **Telegram Bot Commands**
+  - `/schedule` - Get today's schedule
+  - `/next` - Next class info
+  - `/assignments` - Upcoming assignments
+  - `/attendance` - Check attendance
+  - `/submit` - Submit assignment
+
+- [ ] **Calendar Integration**
+  - Export to Google Calendar/iCal
+  - Sync assignments with calendar apps
+  - Two-way sync for updates
+
+### 📊 Medium Priority
+
+- [ ] **Grade Management**
+  - Track assignment and exam grades
+  - Calculate GPA per course
+  - Grade distribution charts
+  - Progress tracking
+
+- [ ] **Analytics Dashboard**
+  - Study time tracker
+  - Assignment completion rate
+  - Weekly/monthly summaries
+  - Engagement metrics (for representatives)
+
+- [ ] **Study Groups**
+  - Create study groups within classes
+  - Group chat integration
+  - Schedule group sessions
+  - Share notes within groups
+
+- [ ] **Offline Mode**
+  - Cache schedule and assignments
+  - Offline viewing
+  - Sync when back online
+
+### 🎯 Future Enhancements
+
+- [ ] **AI-Powered Features**
+  - Smart study time suggestions
+  - Assignment difficulty prediction
+  - Auto-categorize announcements
+  - Intelligent search
+
+- [ ] **Gamification**
+  - Attendance streaks
+  - Achievement badges
+  - Leaderboard (opt-in)
+  - Completion rewards
+
+- [ ] **Collaboration Tools**
+  - Peer-to-peer note sharing
+  - Study partner matching
+  - Q&A discussion boards
+  - Collaborative note-taking
+
+- [ ] **Advanced Customization**
+  - Custom color themes per course
+  - Notification preferences
+  - Widget for quick schedule view
+  - Voice input for tasks
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **Styling**: Tailwind CSS, Framer Motion
+- **Database**: PostgreSQL with Drizzle ORM
+- **Authentication**: Telegram Web App SDK (@tma.js/sdk)
+- **Bot**: Grammy (Telegram Bot Framework)
+- **UI Components**: Radix UI, shadcn/ui
+- **Deployment**: Vercel (recommended)
+
+## 📦 Installation
+
+### Prerequisites
+
+- Node.js 18+ and npm/pnpm
+- PostgreSQL database
+- Telegram Bot Token (from [@BotFather](https://t.me/botfather))
+
+### Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd schedule-managment
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+   
+   Create a `.env` file in the root directory:
+   ```env
+   # Database
+   DATABASE_URL=postgresql://user:password@localhost:5432/schedule_db
+   
+   # Telegram Bot
+   TELEGRAM_BOT_TOKEN=your_bot_token_here
+   TELEGRAM_ENV=prod  # or 'test' for test environment
+   TELEGRAM_APP_NAME=app  # Your mini app name
+   
+   # Next.js
+   BOT_TOKEN=your_bot_token_here  # Same as TELEGRAM_BOT_TOKEN
+   ```
+
+4. **Run database migrations**
+   ```bash
+   npx drizzle-kit generate
+   npx drizzle-kit migrate
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   # or for HTTPS (required for Telegram)
+   npm run dev:https
+   ```
+
+6. **Run the Telegram bot** (in a separate terminal)
+   ```bash
+   npx tsx bot/index.ts
+   ```
+
+## 🚀 Deployment
+
+### Deploy to Vercel
+
+1. Push your code to GitHub
+2. Import project in Vercel
+3. Add environment variables
+4. Deploy!
+
+### Bot Deployment
+
+Deploy the bot to a server (e.g., Railway, Heroku, VPS):
 ```bash
-pnpm run dev
+npm run build
+npm start
 ```
 
-After this, you will see a similar message in your terminal:
-
+Keep the bot running with PM2:
 ```bash
-▲ Next.js 14.2.3
-- Local:        http://localhost:3000
-
-✓ Starting...
-✓ Ready in 2.9s
+pm2 start bot/index.ts --name telegram-bot
 ```
 
-To view the application, you need to open the `Local`
-link (`http://localhost:3000` in this example) in your browser.
+## 📖 Usage
 
-It is important to note that some libraries in this template, such as
-`@telegram-apps/sdk`, are not intended for use outside of Telegram.
+### For Students
 
-Nevertheless, they appear to function properly. This is because the
-`src/hooks/useTelegramMock.ts` file, which is imported in the application's
-`Root` component, employs the `mockTelegramEnv` function to simulate the
-Telegram environment. This trick convinces the application that it is
-running in a Telegram-based environment. Therefore, be cautious not to use this
-function in production mode unless you fully understand its implications.
+1. Open the bot in Telegram
+2. Click the Mini App button or use the link provided by your representative
+3. View your schedule, assignments, and announcements
+4. Stay updated with your class activities
 
-### Run Inside Telegram
+### For Class Representatives
 
-Although it is possible to run the application outside of Telegram, it is
-recommended to develop it within Telegram for the most accurate representation
-of its real-world functionality.
+1. Add the bot to your Telegram group
+2. Create a topic for your class
+3. Run `/create <Classroom Name>` in the topic
+4. Share the generated link with students
+5. Use the "Manage" button in the Mini App to add courses, schedules, assignments, and announcements
 
-To run the application inside Telegram, [@BotFather](https://t.me/botfather)
-requires an HTTPS link.
+## 🤝 Contributing
 
-This template already provides a solution.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-To retrieve a link with the HTTPS protocol, consider using the `dev:https`
-script:
+## 📄 License
 
-```bash
-$ pnpm run dev:https
+This project is licensed under the MIT License.
 
-▲ Next.js 14.2.3
-- Local:        https://localhost:3000
+## 🔗 Useful Links
 
-✓ Starting...
-✓ Ready in 2.4s
-```
+- [Telegram Mini Apps Documentation](https://docs.telegram-mini-apps.com/)
+- [@tma.js/sdk Documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Drizzle ORM Documentation](https://orm.drizzle.team/)
+- [Grammy Bot Framework](https://grammy.dev/)
 
-Visiting the `Local` link (`https://localhost:3000` in this example) in your
-browser, you will see the following warning:
+## 💬 Support
 
-![SSL Warning](assets/ssl-warning.png)
+For questions or issues, please open an issue on GitHub or contact the maintainers.
 
-This browser warning is normal and can be safely ignored as long as the site is
-secure. Click the `Proceed to localhost (unsafe)` button to continue and view
-the application.
-
-Once the application is displayed correctly, submit the
-link `https://127.0.0.1:3000` (`https://localhost:3000` is considered as invalid
-by BotFather) as the Mini App link to [@BotFather](https://t.me/botfather).
-Then, navigate to [https://web.telegram.org/k/](https://web.telegram.org/k/),
-find your bot, and launch the Telegram Mini App. This approach provides the full
-development experience.
-
-## Deploy
-
-The easiest way to deploy your Next.js app is to use
-the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
-
-Check out
-the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for
-more details.
-
-## Useful Links
-
-- [Platform documentation](https://docs.telegram-mini-apps.com/)
-- [@telegram-apps/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
-- [Telegram developers community chat](https://t.me/devs)

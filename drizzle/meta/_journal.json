@@ -8,6 +8,13 @@
       "when": 1765784157629,
       "tag": "0000_tired_vargas",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765796620915,
+      "tag": "0001_groovy_jubilee",
+      "breakpoints": true
     }
   ]
 }

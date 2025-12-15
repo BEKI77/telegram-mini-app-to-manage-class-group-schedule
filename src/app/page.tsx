@@ -8,12 +8,19 @@ import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRawInitData } from '@tma.js/sdk-react';
+import { useRawInitData, initData, useSignal } from '@tma.js/sdk-react';
 
 export default function Home() {
   const [data, setData] = useState<{ schedule: any[], assignments: any[], announcements: any[] } | null>(null);
   const [role, setRole] = useState<'student' | 'representative' | 'admin'>('student');
   const rawInitData = useRawInitData();
+  const user = useSignal(initData.user);
+
+  // Helper to truncate long names
+  const truncateName = (name: string | undefined, maxLength: number = 12) => {
+    if (!name) return 'Scholar';
+    return name.length > maxLength ? name.substring(0, maxLength) + '...' : name;
+  };
 
   useEffect(() => {
     async function load() {
@@ -90,7 +97,7 @@ export default function Home() {
       <motion.header variants={item} className="flex justify-between items-start">
         <div className="flex flex-col space-y-2">
           <h1 className="text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 dark:from-blue-300 dark:to-indigo-400">
-            Hello, Scholar
+            Hello, {truncateName(user?.first_name)}
           </h1>
           <p className="text-muted-foreground font-medium text-lg">{todayDate}</p>
         </div>

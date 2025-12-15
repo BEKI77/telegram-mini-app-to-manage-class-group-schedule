@@ -75,7 +75,7 @@ export const programPeriods = pgTable('program_periods', {
 export const announcements = pgTable('announcements', {
   id: serial('id').primaryKey(),
   topicId: text('topic_id').references(() => topics.id).notNull(),
-  courseId: integer('course_id').references(() => courses.id, { onDelete: 'set null' }),
+  courseId: integer('course_id').references(() => courses.id, { onDelete: 'cascade' }),
   content: text('content').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 });

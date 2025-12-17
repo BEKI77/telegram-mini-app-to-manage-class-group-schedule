@@ -6,7 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2, Edit, BookOpen, Calendar, FileText, Megaphone, X, Check } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { motion, AnimatePresence } from 'framer-motion';
+
 
 type Course = {
     id: number;
@@ -349,14 +351,22 @@ export default function ManagePage() {
                             {showScheduleForm && (
                                 <FormCard title={editingSchedule ? 'Edit Schedule' : 'New Schedule'} onClose={() => { setShowScheduleForm(false); setEditingSchedule(null); }} gradient="from-green-500/10 to-emerald-500/10">
                                     <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); saveSchedule({ courseId: parseInt(fd.get('courseId') as string), dayOfWeek: parseInt(fd.get('dayOfWeek') as string), startTime: fd.get('startTime') as string, endTime: fd.get('endTime') as string, location: fd.get('location') as string }); }} className="space-y-3">
-                                        <select name="courseId" defaultValue={editingSchedule?.courseId || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all outline-none">
-                                            <option value="">Select Course</option>
-                                            {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                        </select>
-                                        <select name="dayOfWeek" defaultValue={editingSchedule?.dayOfWeek ?? ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all outline-none">
-                                            <option value="">Select Day</option>
-                                            {DAYS.map((day, i) => <option key={i} value={i}>{day}</option>)}
-                                        </select>
+                                        <Select name="courseId" defaultValue={editingSchedule?.courseId?.toString() || ""}>
+                                            <SelectTrigger className="w-full bg-background/50 backdrop-blur-sm border-white/10 text-foreground h-12">
+                                                <SelectValue placeholder="Select Course" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {courses.map(c => <SelectItem key={c.id} value={c.id.toString()}>{c.name}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
+                                        <Select name="dayOfWeek" defaultValue={editingSchedule?.dayOfWeek?.toString() || ""}>
+                                            <SelectTrigger className="w-full bg-background/50 backdrop-blur-sm border-white/10 text-foreground h-12">
+                                                <SelectValue placeholder="Select Day" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {DAYS.map((day, i) => <SelectItem key={i} value={i.toString()}>{day}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
                                         <div className="grid grid-cols-2 gap-3">
                                             <input type="time" name="startTime" defaultValue={editingSchedule?.startTime || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all outline-none" />
                                             <input type="time" name="endTime" defaultValue={editingSchedule?.endTime || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-green-500/50 focus:border-green-500/50 transition-all outline-none" />
@@ -410,19 +420,28 @@ export default function ManagePage() {
                             {showAssignmentForm && (
                                 <FormCard title={editingAssignment ? 'Edit Assignment' : 'New Assignment'} onClose={() => { setShowAssignmentForm(false); setEditingAssignment(null); }} gradient="from-orange-500/10 to-amber-500/10">
                                     <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); saveAssignment({ courseId: parseInt(fd.get('courseId') as string), title: fd.get('title') as string, description: fd.get('description') as string, dueDate: fd.get('dueDate') as string, attachmentUrl: fd.get('attachmentUrl') as string, status: fd.get('status') as string }); }} className="space-y-3">
-                                        <select name="courseId" defaultValue={editingAssignment?.courseId || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none">
-                                            <option value="">Select Course</option>
-                                            {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                        </select>
+                                        <Select name="courseId" defaultValue={editingAssignment?.courseId?.toString() || ""}>
+                                            <SelectTrigger className="w-full bg-background/50 backdrop-blur-sm border-white/10 text-foreground h-12">
+                                                <SelectValue placeholder="Select Course" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {courses.map(c => <SelectItem key={c.id} value={c.id.toString()}>{c.name}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
                                         <input name="title" placeholder="Assignment Title" defaultValue={editingAssignment?.title || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
                                         <textarea name="description" placeholder="Description (optional)" defaultValue={editingAssignment?.description || ''} rows={3} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none resize-none" />
                                         <input type="datetime-local" name="dueDate" defaultValue={editingAssignment?.dueDate?.slice(0, 16) || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
                                         <input name="attachmentUrl" placeholder="Attachment URL (PDF)" defaultValue={editingAssignment?.attachmentUrl || ''} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
-                                        <select name="status" defaultValue={editingAssignment?.status || 'upcoming'} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none">
-                                            <option value="upcoming">Upcoming</option>
-                                            <option value="overdue">Overdue</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
+                                        <Select name="status" defaultValue={editingAssignment?.status || "upcoming"}>
+                                            <SelectTrigger className="w-full bg-background/50 backdrop-blur-sm border-white/10 text-foreground h-12">
+                                                <SelectValue placeholder="Status" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="upcoming">Upcoming</SelectItem>
+                                                <SelectItem value="overdue">Overdue</SelectItem>
+                                                <SelectItem value="completed">Completed</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                         <div className="flex gap-2 pt-2">
                                             <Button type="submit" className="flex-1 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 border-0"><Check className="mr-2 h-4 w-4" /> Save</Button>
                                             <Button type="button" variant="outline" onClick={() => { setShowAssignmentForm(false); setEditingAssignment(null); }} className="flex-1 border-white/10 hover:bg-white/5">Cancel</Button>
@@ -472,10 +491,15 @@ export default function ManagePage() {
                                 <FormCard title={editingAnnouncement ? 'Edit Announcement' : 'New Announcement'} onClose={() => { setShowAnnouncementForm(false); setEditingAnnouncement(null); }} gradient="from-pink-500/10 to-rose-500/10">
                                     <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); saveAnnouncement({ content: fd.get('content') as string, courseId: fd.get('courseId') ? parseInt(fd.get('courseId') as string) : null }); }} className="space-y-3">
                                         <textarea name="content" placeholder="Announcement content" defaultValue={editingAnnouncement?.content || ''} required rows={4} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all outline-none resize-none" />
-                                        <select name="courseId" defaultValue={editingAnnouncement?.courseId || ''} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 transition-all outline-none">
-                                            <option value="">General (not course-specific)</option>
-                                            {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
-                                        </select>
+                                        <Select name="courseId" defaultValue={editingAnnouncement?.courseId?.toString() || "general"}>
+                                            <SelectTrigger className="w-full bg-background/50 backdrop-blur-sm border-white/10 text-foreground h-12">
+                                                <SelectValue placeholder="Select Context" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="general">General (not course-specific)</SelectItem>
+                                                {courses.map(c => <SelectItem key={c.id} value={c.id.toString()}>{c.name}</SelectItem>)}
+                                            </SelectContent>
+                                        </Select>
                                         <div className="flex gap-2 pt-2">
                                             <Button type="submit" className="flex-1 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 border-0"><Check className="mr-2 h-4 w-4" /> Save</Button>
                                             <Button type="button" variant="outline" onClick={() => { setShowAnnouncementForm(false); setEditingAnnouncement(null); }} className="flex-1 border-white/10 hover:bg-white/5">Cancel</Button>

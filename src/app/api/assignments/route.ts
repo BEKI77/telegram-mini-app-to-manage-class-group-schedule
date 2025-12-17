@@ -30,7 +30,8 @@ async function verifyRepresentative(authHeader: string | null) {
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
-    const status = searchParams.get('status'); // 'upcoming', 'past', or undefined
+    const status = searchParams.get('status');
+    const id = searchParams.get('id');
     const authHeader = request.headers.get('X-Telegram-Init-Data');
     const { start_param: topicId } = authHeader ? parseInitData(authHeader) : { start_param: null };
 
@@ -39,7 +40,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const query = db.select({
+        const baseQuery = db.select({
             id: assignments.id,
             title: assignments.title,
             description: assignments.description,
@@ -50,10 +51,18 @@ export async function GET(request: Request) {
             attachmentUrl: assignments.attachmentUrl
         })
         .from(assignments)
-        .innerJoin(courses, eq(assignments.courseId, courses.id))
-        .where(eq(courses.topicId, topicId));
+        .innerJoin(courses, eq(assignments.courseId, courses.id));
 
-        const allAssignments = await query.orderBy(asc(assignments.dueDate));
+        if (id) {
+            // Fetch single assignment
+            const assignment = await baseQuery.where(and(eq(courses.topicId, topicId), eq(assignments.id, parseInt(id))));
+            if (assignment.length === 0) {
+                 return NextResponse.json({ error: 'Not found' }, { status: 404 });
+            }
+            return NextResponse.json(assignment[0]);
+        }
+
+        const allAssignments = await baseQuery.where(eq(courses.topicId, topicId)).orderBy(asc(assignments.dueDate));
         
         let result = allAssignments;
         

@@ -80,6 +80,13 @@ export const announcements = pgTable('announcements', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+export const academicCalendars = pgTable('academic_calendars', {
+  id: serial('id').primaryKey(),
+  topicId: text('topic_id').references(() => topics.id).notNull(),
+  url: text('url').notNull(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 // Relations
 export const topicsRelations = relations(topics, ({ one, many }) => ({
   group: one(groups, {

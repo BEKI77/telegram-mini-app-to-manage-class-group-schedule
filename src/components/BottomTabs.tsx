@@ -1,6 +1,6 @@
 'use client';
 
-import { Book, Calendar, ClipboardList, Clock } from 'lucide-react';
+import { Book, Calendar, ClipboardList, Clock, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { clsx } from 'clsx';
@@ -11,6 +11,7 @@ const tabs = [
     { name: 'Schedule', href: '/schedule', icon: Calendar },
     { name: 'Work', href: '/assignments', icon: ClipboardList },
     { name: 'Courses', href: '/courses', icon: Book },
+    { name: 'Academic', href: '/academic-calendar', icon: FileText },
 ];
 
 export function BottomTabs() {
@@ -36,7 +37,7 @@ export function BottomTabs() {
                                     layoutId="activeTab"
                                     className="absolute top-2 bottom-2 w-12 bg-white/10 rounded-xl"
                                     initial={false}
-                                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                                    transition={{ type: "spring", stiffness: 700, damping: 30 }}
                                 />
                             )}
 

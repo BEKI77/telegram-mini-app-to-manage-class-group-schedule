@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { ClipboardList, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -100,42 +101,47 @@ function AssignmentList({ assignments, type }: { assignments: any[], type: 'upco
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.05 }}
                         >
-                            <Card className="overflow-hidden border-0 bg-card/60 backdrop-blur-md shadow-sm ring-1 ring-border hover:ring-primary/50 transition-all group">
-                                <CardContent className="p-5 flex flex-col gap-3">
-                                    <div className="flex justify-between items-start gap-4">
-                                        <div className="space-y-1 flex-1">
+                            <Link href={`/assignments/${item.id}`} className="block">
+                                <Card className="overflow-hidden border-0 bg-card/60 backdrop-blur-md shadow-sm ring-1 ring-border hover:ring-primary/50 transition-all group cursor-pointer active:scale-95 duration-200">
+                                    <CardContent className="p-5 flex flex-col gap-3">
+                                        <div className="flex justify-between items-start gap-4">
+                                            <div className="space-y-1 flex-1">
+                                                <div className="flex items-center gap-2">
+                                                    <h3 className="font-bold text-lg leading-tight line-clamp-1 group-hover:text-primary transition-colors">{item.title}</h3>
+                                                    {item.status === 'overdue' && (
+                                                        <Badge variant="destructive" className="text-[10px] px-1.5 h-5 uppercase tracking-wide">Overdue</Badge>
+                                                    )}
+                                                    {item.attachmentUrl && (
+                                                        <Badge variant="secondary" className="text-[10px] px-1.5 h-5 uppercase tracking-wide bg-blue-500/10 text-blue-400 border-blue-500/20">PDF</Badge>
+                                                    )}
+                                                </div>
+                                                <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center justify-between mt-2 pt-3 border-t border-dashed border-border/50">
                                             <div className="flex items-center gap-2">
-                                                <h3 className="font-bold text-lg leading-tight line-clamp-1 group-hover:text-primary transition-colors">{item.title}</h3>
-                                                {item.status === 'overdue' && (
-                                                    <Badge variant="destructive" className="text-[10px] px-1.5 h-5 uppercase tracking-wide">Overdue</Badge>
+                                                <span className="bg-secondary/80 px-2.5 py-1 rounded-md text-xs font-semibold text-secondary-foreground">{item.courseName}</span>
+                                            </div>
+                                            <div className={`text-xs font-bold flex items-center gap-1.5 ${item.status === 'overdue' ? 'text-destructive' :
+                                                type === 'past' ? 'text-muted-foreground' : 'text-orange-500'
+                                                }`}>
+                                                {type === 'past' ? (
+                                                    <>
+                                                        <CheckCircle2 className="w-4 h-4" />
+                                                        <span>Completed</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <AlertCircle className="w-4 h-4" />
+                                                        <span>Due {format(new Date(item.dueDate), 'MMM d')}</span>
+                                                    </>
                                                 )}
                                             </div>
-                                            <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
                                         </div>
-                                    </div>
-
-                                    <div className="flex items-center justify-between mt-2 pt-3 border-t border-dashed border-border/50">
-                                        <div className="flex items-center gap-2">
-                                            <span className="bg-secondary/80 px-2.5 py-1 rounded-md text-xs font-semibold text-secondary-foreground">{item.courseName}</span>
-                                        </div>
-                                        <div className={`text-xs font-bold flex items-center gap-1.5 ${item.status === 'overdue' ? 'text-destructive' :
-                                            type === 'past' ? 'text-muted-foreground' : 'text-orange-500'
-                                            }`}>
-                                            {type === 'past' ? (
-                                                <>
-                                                    <CheckCircle2 className="w-4 h-4" />
-                                                    <span>Completed</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <AlertCircle className="w-4 h-4" />
-                                                    <span>Due {format(new Date(item.dueDate), 'MMM d')}</span>
-                                                </>
-                                            )}
-                                        </div>
-                                    </div>
-                                </CardContent>
-                            </Card>
+                                    </CardContent>
+                                </Card>
+                            </Link>
                         </motion.div>
                     ))}
                 </AnimatePresence>

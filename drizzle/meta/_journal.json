@@ -15,6 +15,13 @@
       "when": 1765796620915,
       "tag": "0001_groovy_jubilee",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765937780764,
+      "tag": "0002_pink_eddie_brock",
+      "breakpoints": true
     }
   ]
 }

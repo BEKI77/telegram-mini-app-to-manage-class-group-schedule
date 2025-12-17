@@ -18,6 +18,9 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang={locale} className="dark" suppressHydrationWarning>
+      <head>
+        <script src="https://telegram.org/js/telegram-web-app.js" async />
+      </head>
       <body className='antialiased min-h-screen pb-20 select-none'>
         <I18nProvider>
           <Root>

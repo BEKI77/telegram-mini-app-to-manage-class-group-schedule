@@ -33,6 +33,7 @@ type Assignment = {
     dueDate: string;
     status: string;
     courseName?: string;
+    attachmentUrl?: string | null;
 };
 
 type Announcement = {
@@ -408,7 +409,7 @@ export default function ManagePage() {
                         <AnimatePresence>
                             {showAssignmentForm && (
                                 <FormCard title={editingAssignment ? 'Edit Assignment' : 'New Assignment'} onClose={() => { setShowAssignmentForm(false); setEditingAssignment(null); }} gradient="from-orange-500/10 to-amber-500/10">
-                                    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); saveAssignment({ courseId: parseInt(fd.get('courseId') as string), title: fd.get('title') as string, description: fd.get('description') as string, dueDate: fd.get('dueDate') as string, status: fd.get('status') as string }); }} className="space-y-3">
+                                    <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); saveAssignment({ courseId: parseInt(fd.get('courseId') as string), title: fd.get('title') as string, description: fd.get('description') as string, dueDate: fd.get('dueDate') as string, attachmentUrl: fd.get('attachmentUrl') as string, status: fd.get('status') as string }); }} className="space-y-3">
                                         <select name="courseId" defaultValue={editingAssignment?.courseId || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none">
                                             <option value="">Select Course</option>
                                             {courses.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -416,6 +417,7 @@ export default function ManagePage() {
                                         <input name="title" placeholder="Assignment Title" defaultValue={editingAssignment?.title || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
                                         <textarea name="description" placeholder="Description (optional)" defaultValue={editingAssignment?.description || ''} rows={3} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none resize-none" />
                                         <input type="datetime-local" name="dueDate" defaultValue={editingAssignment?.dueDate?.slice(0, 16) || ''} required className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
+                                        <input name="attachmentUrl" placeholder="Attachment URL (PDF)" defaultValue={editingAssignment?.attachmentUrl || ''} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none" />
                                         <select name="status" defaultValue={editingAssignment?.status || 'upcoming'} className="w-full p-3 bg-background/50 backdrop-blur-sm border border-white/10 rounded-lg focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition-all outline-none">
                                             <option value="upcoming">Upcoming</option>
                                             <option value="overdue">Overdue</option>
